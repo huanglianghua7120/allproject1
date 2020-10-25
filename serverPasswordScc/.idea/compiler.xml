@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="saaf" />
+        <module name="SaafApiManagerModel" />
+        <module name="saafBaseModel" />
+        <module name="SaafBPMModel" />
+        <module name="saafCommonModel" />
+        <module name="saafGenFormModel" />
+        <module name="SaafMessageModel" />
+        <module name="SaafReportModel" />
+        <module name="SaafRuleEngine" />
+        <module name="SaafSolrModel" />
+        <module name="SrmBaseModel" />
+        <module name="SrmCuaModel" />
+        <module name="SrmEntitiesModel" />
+        <module name="SrmGlModel" />
+        <module name="SrmIntfModel" />
+        <module name="SrmOkcModel" />
+        <module name="SrmPoModel" />
+        <module name="SrmPonModel" />
+        <module name="SrmPosModel" />
+        <module name="SrmPrcModel" />
+        <module name="SrmSpmModel" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

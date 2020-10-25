@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../SaafApiManagerModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafBPMModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafBaseModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafCommonModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafMessageModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafProjectMaster" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafReportModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafRuleModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafSolrAPI" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SaafUI" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmBaseModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmCuaModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmEntitiesModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmGlModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmIntfModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmOkcModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmPoModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmPonModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmPosModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmPrcModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../SrmSpmModel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../saafGenFormModel" charset="UTF-8" />
+  </component>
+</project>
