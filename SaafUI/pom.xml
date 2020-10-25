@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<parent>
+		<groupId>com.sie.saaf</groupId>
+		<artifactId>saaf-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../SaafProjectMaster/pom.xml</relativePath>
+	</parent>
+
+	<groupId>com.sie.saaf</groupId>
+
+	<artifactId>saaf</artifactId>
+	<name>saaf</name>
+	<packaging>war</packaging>
+
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<package.config>dev</package.config>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>local</id>
+			<properties>
+				<package.config>local</package.config>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>sit</id>
+			<properties>
+				<package.config>sit</package.config>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>uat</id>
+			<properties>
+				<package.config>uat</package.config>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>cloud</id>
+			<properties>
+				<package.config>cloud</package.config>
+			</properties>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<!--
+            <dependency>
+                <groupId>com.sie.saaf</groupId>
+                <artifactId>SaafOilGasStationModel</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            -->
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SaafApiManagerModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>saafBaseModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SaafReportModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SaafRuleEngine</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- 表单自定义模块 -->
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>saafGenFormModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<!--供应商base模块-->
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmBaseModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmSpmModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+
+
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SaafMessageModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SaafBPMModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- <dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>TbkSales</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency> 
+-->
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SaafSolrModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmOkcModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmPosModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmPoModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmEntitiesModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmIntfModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmPrcModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmPonModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmGlModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmCuaModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmOkcModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.8.6</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.8.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.8.8</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.8</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sie</groupId>
+			<artifactId>baiduUeditorFramework</artifactId>
+			<version>1.1.4</version>
+			<scope>system</scope>
+			<systemPath>${extra.lib.basedir}/lib/baiduUeditorFramework-1.1.4.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+	</dependencies>
+	<!--指定web.xml在WebContent中-->
+
+	<build>
+		<finalName>saafbase</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>local/**</exclude>
+					<exclude>dev/**</exclude>
+					<exclude>sit/**</exclude>
+					<exclude>uat/**</exclude>
+					<exclude>cloud/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>WebContent</directory>
+						</resource>
+
+						<resource>
+							<directory>src/main/resources/${package.config}</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<filtering>false</filtering>
+						</resource>
+					</webResources>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+
+			<!--<plugin>-->
+			<!--<groupId>org.apache.maven.plugins</groupId>-->
+			<!--<artifactId>maven-dependency-plugin</artifactId>-->
+			<!--<version>2.10</version>-->
+			<!--<executions>-->
+			<!--<execution>-->
+			<!--<id>copy-dependencies</id>-->
+			<!--<phase>compile</phase>-->
+			<!--<goals>-->
+			<!--<goal>copy-dependencies</goal>-->
+			<!--</goals>-->
+			<!--<configuration>-->
+			<!--<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>-->
+			<!--<includeScope>system</includeScope>-->
+			<!--</configuration>-->
+			<!--</execution>-->
+			<!--</executions>-->
+			<!--</plugin>-->
+		</plugins>
+	</build>
+</project>

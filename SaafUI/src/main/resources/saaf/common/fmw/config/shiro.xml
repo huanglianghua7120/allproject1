@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+  		http://www.springframework.org/schema/aop
+  		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+    	http://www.springframework.org/schema/task
+  		http://www.springframework.org/schema/task/spring-task-4.1.xsd
+  		http://www.springframework.org/schema/jee
+  		http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+  		http://www.springframework.org/schema/cache
+  		http://www.springframework.org/schema/cache/spring-cache.xsd">
+	<!-- ========shiro 配置开始 ======== -->
+	<bean id="myRealm" class="saaf.common.fmw.shiro.CustomRealm">
+		<property name="cacheManager" ref="shiroSpringCacheManager" />
+		<!-- 打开缓存 -->
+		<property name="cachingEnabled" value="true" />
+		<!-- 打开身份认证缓存 -->
+		<property name="authenticationCachingEnabled" value="false" />
+		<!-- 打开授权缓存 -->
+		<property name="authorizationCachingEnabled" value="true" />
+	</bean>
+	<!-- session 保存到cookie，关闭浏览器下次可以直接登录认证，当maxAge为-1不会写cookie。 -->
+	<bean id="sessionIdCookie"
+		class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="srmSessId" />
+		<property name="httpOnly" value="true" />
+		<!-- 浏览器关闭session失效，不计入cookie -->
+		<property name="maxAge" value="-1" />
+	</bean>
+	<!-- 记住我功能，当关闭浏览器下次再访问的时候不需要登录也能查看。只对filterChainDefinitions设置为user级别的链接有效， 
+		类似于淘宝看商品、添加购物车，不需要验证是否登录。但是提交订单就必须登录。 -->
+	<bean id="rememberMeCookie"
+		class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="2592000" /><!-- 30天 -->
+	</bean>
+	<bean id="rememberMeManager"
+		class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cookie" ref="rememberMeCookie" />
+		<!-- aes key。shiro默认的key是不安全的,可以使用工程utils包的GenerateAESKey生成一个自定义的key -->
+		<property name="cipherKey"
+			value="#{T(org.apache.shiro.codec.Base64).decode('XgGkgqGqYrix9lI6vxcrRw==')}" />
+	</bean>
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="sessionDAO" />
+		<property name="sessionIdCookieEnabled" value="true" />
+		<property name="sessionIdCookie" ref="sessionIdCookie" />
+		<property name="deleteInvalidSessions" value="true" />
+		<property name="sessionValidationSchedulerEnabled"
+			value="true" />
+	</bean>
+
+	<bean id="securityManager"
+		class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="myRealm" />
+		<!-- shiro使用redis缓存 -->
+		<property name="cacheManager" ref="shiroSpringCacheManager" />
+		<property name="sessionManager" ref="sessionManager" />
+		<!-- 客户端勾选记住 -->
+		<property name="rememberMeManager" ref="rememberMeManager" />
+	</bean>
+
+	<!-- 配置自定义缓存管理器，中引入redis缓存管理器 -->
+	<bean id="shiroSpringCacheManager"
+		class="saaf.common.fmw.shiro.ShiroSpringCacheManager">
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+	<bean id="shiroFilter"
+		class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+<!-- 		<property name="loginUrl" value="/" /> -->
+<!-- 		<property name="unauthorizedUrl" value="/" /> -->
+<!-- 		<property name="filterChainDefinitions"> -->
+			<!-- 登录页面的所有请求，包括资源文件全部设定为匿名 修改用户信息功能需要验证登录，其他都使用user过滤器。即rememberMe功能。 -->
+<!-- 			<value> -->
+<!-- 				/restServer/saafLoginServlet/**=anon -->
+<!-- 				/restServer/srmBaseParamsService/findBaseParams=anon -->
+<!-- 				/restServer/srmPonAuctionHeadersService/findAuctionList=anon -->
+<!-- 				/restServer/**=user -->
+<!-- 				/**=anon -->
+<!-- 			</value> -->
+<!-- 		</property> -->
+	</bean>
+	<!-- 自定义shiro的sessionDao，把session写入redis -->
+	<bean id="sessionDAO"
+		class="saaf.common.fmw.shiro.RedisSessionDao">
+		<constructor-arg ref="redisTemplate" />
+		<constructor-arg value="${redis.session.expireTime}" />
+	</bean>
+	<bean id="lifecycleBeanPostProcessor"
+		class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!-- AOP式方法级权限检查  -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+	<!-- ========shiro 配置结束 ======== -->
+	<!-- Redis集群配置 -->
+	<bean id="redisClusterConfig"
+		class="org.springframework.data.redis.connection.RedisClusterConfiguration">
+		<property name="maxRedirects" value="6"></property>
+		<property name="clusterNodes">
+			<set>
+				<bean
+					class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg name="host" value="${redis.host0}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port0}"></constructor-arg>
+				</bean>
+				<bean
+					class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg name="host" value="${redis.host1}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port1}"></constructor-arg>
+				</bean>
+
+				<bean
+					class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg name="host" value="${redis.host2}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port2}"></constructor-arg>
+				</bean>
+				<bean
+					class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg name="host" value="${redis.host3}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port3}"></constructor-arg>
+				</bean>
+				<bean
+					class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg name="host" value="${redis.host4}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port4}"></constructor-arg>
+				</bean>
+				<bean
+					class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg name="host" value="${redis.host5}"></constructor-arg>
+					<constructor-arg name="port" value="${redis.port5}"></constructor-arg>
+				</bean>
+			</set>
+		</property>
+	</bean>
+	<!--Jedis连接池相关属性的注入 -->
+	<bean id="jedisPoolConfig"
+		class="redis.clients.jedis.JedisPoolConfig">
+		<property name="testOnBorrow"
+			value="${redis.pool.testOnBorrow}" />
+		<property name="maxWaitMillis" value="${redis.pool.maxWait}" />
+		<property name="maxTotal" value="${redis.pool.maxActive}" />
+		<property name="maxIdle" value="${redis.pool.maxIdle}" />
+	</bean>
+	<!-- spring-data-redis配置,主要用作redis缓存 begin -->
+	<bean id="redisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg name="clusterConfig"
+			ref="redisClusterConfig" />
+		<property name="poolConfig" ref="jedisPoolConfig" />
+		<property name="timeout" value="5000" />
+	</bean>
+	<bean id="stringRedisSerializer"
+		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+	<bean id="jdkSerializationRedisSerializer"
+		class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+	<bean id="redisTemplate"
+		class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory"
+			ref="redisConnectionFactory" />
+		<property name="KeySerializer" ref="stringRedisSerializer" />
+		<property name="ValueSerializer"
+			ref="jdkSerializationRedisSerializer" />
+		<property name="hashKeySerializer"
+			ref="stringRedisSerializer" />
+		<property name="hashValueSerializer"
+			ref="jdkSerializationRedisSerializer" />
+		<property name="enableTransactionSupport" value="true" />
+	</bean>
+
+	<!--spring cache -->
+	<bean id="cacheManager"
+		class="org.springframework.data.redis.cache.RedisCacheManager"
+		c:redisOperations-ref="redisTemplate">
+		<!-- 默认缓存10分钟 -->
+		<property name="defaultExpiration" value="600" />
+		<property name="usePrefix" value="true" />
+		<!-- cacheName 缓存超时配置，半小时，一小时，一天 -->
+		<property name="expires">
+			<map key-type="java.lang.String" value-type="java.lang.Long">
+				<entry key="halfHour" value="1800" />
+				<entry key="hour" value="3600" />
+				<entry key="oneDay" value="86400" />
+				<!-- shiro cache keys 对缓存的配置 -->
+				<entry key="authorizationCache" value="1800" />
+				<entry key="authenticationCache" value="1800" />
+				<entry key="activeSessionCache" value="1800" />
+			</map>
+		</property>
+	</bean>
+	<!-- spring-data-redis配置,主要用作redis缓存 end -->
+
+</beans>

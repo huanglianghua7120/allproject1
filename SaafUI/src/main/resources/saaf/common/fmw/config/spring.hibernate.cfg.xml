@@ -1,0 +1,193 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:solr="http://www.springframework.org/schema/data/solr"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/data/solr
+       http://www.springframework.org/schema/data/solr/spring-solr-2.0.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd">
+    <context:annotation-config/>
+    <tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true"/>
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+    <!--<context:component-scan base-package="saaf.common.fmw.*.services,
+                                          saaf.common.fmw.*.model.dao,
+                                          saaf.common.fmw.tarkjob,
+                                          saaf.common.fmw.*.model.dao.readonly,
+                                          saaf.common.fmw.*.model.inter.server,
+                                          saaf.common.fmw.*.model.entities,
+                                          saaf.common.fmw.*.ws,
+                                          com.yhg.hibernate.core.dao"/>-->
+    <context:component-scan base-package="saaf.common.fmw.*.services,
+                                          saaf.common.fmw.*.model.dao,
+                                          saaf.common.fmw.*.model.dao.readonly,
+                                          saaf.common.fmw.*.model.inter.server,
+                                          saaf.common.fmw.*.model.entities,
+                                          saaf.common.fmw.*.ws,
+                                          com.yhg.hibernate.core.dao"/>
+    <!--saaf.common.fmw.base.service,saaf.common.fmw.genform.services,com.yhg.rule.services,saaf.common.fmw.report.services,-->
+    <!--saaf.common.fmw.base.model.dao,saaf.common.fmw.common.model.dao,saaf.common.fmw.genform.model.dao,saaf.common.fmw.report.model.dao,-->
+    <!--saaf.common.fmw.base.model.dao.readonly,saaf.common.fmw.common.model.dao.readonly,saaf.common.fmw.genform.model.dao.readonly,saaf.common.fmw.report.model.dao.readonly,-->
+    <!--saaf.common.fmw.base.model.inter.server,saaf.common.fmw.common.model.inter.server,saaf.common.fmw.genform.model.inter.server,saaf.common.fmw.report.model.inter.server,-->
+    <import resource="shiro.xml"/>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+        <list>
+            <value>classpath:saaf/common/fmw/config/db_jdbc.properties</value>
+            <value>classpath:saaf/common/fmw/config/shiro_redis.properties</value>
+        </list>
+        </property>
+    </bean>
+    
+    <util:properties id="config" location="classpath:saaf/common/fmw/config/config.properties"/>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>saaf/common/fmw/config/message</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"></property>
+        <property name="maxIdle" value="${jdbc.maxIdle}"></property>
+        <property name="maxWait" value="${jdbc.maxWait}"></property>
+        <property name="maxActive" value="${jdbc.maxActive}"></property>
+        <property name="initialSize" value="${jdbc.initialSize}"></property>
+        <property name="validationQuery" value="select 1 from dual"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnReturn" value="false"/>
+        <!-- <property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}"/> -->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>-->
+        <!--<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>-->
+        <property name="removeAbandoned" value="${jdbc.removeAbandoned}"/>
+        <!--<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}"/>-->
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>saaf.common.fmw.*.model.entities</value>
+                <value>com.message.api.model.entities</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="hibernateTemplete" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <!--<bean id="baseDAO" class="saaf.common.fmw.common.dao.BaseDAOImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplete"></property>
+    </bean>-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="wsSecurityPolicy" class="com.yhg.redis.framework.WSSecurityPolicy"></bean>
+    <!-- 配置事务的传播特性 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="create*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="push*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="set*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="do*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="generate*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="*" read-only="true" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 那些类的哪些方法参与事务 -->
+    <aop:config>
+        <aop:pointcut id="businessService" expression="execution(* saaf.common.fmw.*.model.inter.server.*.*(..))||execution(* com.message.api.model.inter.server.*.*(..))||execution(* saaf.common.fmw.message.shortmessage.yimei.service.*.*(..))||execution(* saaf.common.fmw.common.services.FileManagerServices.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="businessService"/>
+    </aop:config>
+
+
+    <bean name="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
+        <property name="maxWaitMillis" value="-1"/>
+        <property name="maxTotal" value="1000"/>
+        <property name="minIdle" value="8"/>
+        <property name="maxIdle" value="100"/>
+    </bean>
+    <bean id="jedisCluster" class="com.yhg.redis.framework.facotry.JedisClusterFactory">
+        <property name="addressConfig">
+            <value>classpath:saaf/common/fmw/config/db_redis.properties</value>
+        </property>
+        <property name="addressKeyPrefix" value="address"/>
+        <property name="timeout" value="300000"/>
+        <property name="maxRedirections" value="6"/>
+        <property name="genericObjectPoolConfig" ref="genericObjectPoolConfig"/>
+    </bean>
+     <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="databaseSchemaUpdate" value="true"/>
+        <property name="jobExecutorActivate" value="false"/>
+    </bean>
+    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
+    </bean>
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="activitiCore" class="com.yhg.bpm.activiti.custom.core.ActivitiCoreImpl">
+        <property name="processEngine" ref="processEngine"></property>
+        <property name="repositoryService" ref="repositoryService"></property>
+        <property name="runtimeService" ref="runtimeService"></property>
+        <property name="taskService" ref="taskService"></property>
+        <property name="historyService" ref="historyService"></property>
+        <property name="managementService" ref="managementService"></property>
+        <property name="processDefinitionMapGenerator" ref="processDefinitionMapGenerator"></property>
+    </bean>
+    <bean id="processDefinitionMapGenerator" class="com.yhg.bpm.activiti.custom.image.ProcessDefinitionMapGenerator">
+        <property name="repositoryService" ref="repositoryService"></property>
+        <property name="runtimeService" ref="runtimeService"></property>
+    </bean>
+
+    <solr:solr-client id="solrClient" url="http://192.168.137.201:8080/solr,http://192.168.137.201:8081/solr,http://192.168.137.201:8082/solr" />
+
+    <bean id="solrTemplate" class="org.springframework.data.solr.core.SolrTemplate"  scope="singleton"  >
+        <constructor-arg ref="solrClient" />
+    </bean>
+    <solr:repositories base-package="saaf.common.fmw.*.repository"  schema-creation-support="true" solr-template-ref="solrTemplate"  solr-client-ref="solrClient" base-class="saaf.common.fmw.solr.core.SolrServerRepositoryImpl"    />
+
+    <!--<bean id="solrRepository" class="saaf.common.fmw.solr.repository.SolrRepository">
+        <property name="solrOperations" ref="solrTemplate"/>
+    </bean>-->
+	
+	<import resource="message_mq_provider.xml"/>
+    <task:annotation-driven/>
+</beans>
