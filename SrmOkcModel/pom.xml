@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.sie.saaf</groupId>
+        <artifactId>saaf-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../SaafProjectMaster/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>SrmOkcModel</artifactId>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.sie.saaf</groupId>
+            <artifactId>saafCommonModel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sie.saaf</groupId>
+            <artifactId>SrmEntitiesModel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sie.saaf</groupId>
+            <artifactId>saafBaseModel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sie.saaf</groupId>
+            <artifactId>SrmPonModel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sie</groupId>
+            <artifactId>pageoffice</artifactId>
+            <version>4.5.0.8</version>
+            <scope>system</scope>
+            <systemPath>${extra.lib.basedir}/lib/pageoffice4.5.0.8.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jodconverter</groupId>
+            <artifactId>jodconverter-local</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jodconverter</groupId>
+            <artifactId>jodconverter-core</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+
+    </dependencies>
+</project>
