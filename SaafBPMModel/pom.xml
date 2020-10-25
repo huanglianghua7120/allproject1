@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.sie.saaf</groupId>
+        <artifactId>saaf-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../SaafProjectMaster/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sie.saaf</groupId>
+    <artifactId>SaafBPMModel</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.sie.saaf</groupId>
+            <artifactId>saafCommonModel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.activiti/activiti-engine -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>5.22.0</version>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring -->
+		<dependency>
+		    <groupId>org.activiti</groupId>
+		    <artifactId>activiti-spring</artifactId>
+		    <version>5.22.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.activiti/activiti-bpmn-converter -->
+		<dependency>
+		    <groupId>org.activiti</groupId>
+		    <artifactId>activiti-bpmn-converter</artifactId>
+		    <version>5.22.0</version>
+		</dependency>
+				
+				
+
+        <dependency>
+            <groupId>com.sie</groupId>
+            <artifactId>sieActivitiBpmApi</artifactId>
+            <version>1.0.1</version>
+		    <scope>system</scope>
+		  <systemPath>${extra.lib.basedir}/lib/sieActivitiBpmApi-1.0.1.jar</systemPath>		
+        </dependency>
+
+
+    </dependencies>
+
+    
+</project>

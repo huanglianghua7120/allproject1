@@ -1,0 +1,156 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.sie.saaf</groupId>
+	<artifactId>SaafMessageModel</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>SaafMessageModel</name>
+	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>com.sie.saaf</groupId>
+		<artifactId>saaf-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../SaafProjectMaster/pom.xml</relativePath>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring-version>4.0.5.RELEASE</spring-version>
+		<poi-version>3.13</poi-version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SaafReportModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+	<dependency>
+		<groupId>com.sie.saaf</groupId>
+		<artifactId>saafBaseModel</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</dependency>
+		
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
+		<!-- 短信 邮件 微信相关jar包-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>4.3.9.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.message</groupId>
+			<artifactId>sieJaxrpcMessage</artifactId>
+			<version>1.0.1</version>
+			<scope>system</scope>
+			<systemPath>${extra.lib.basedir}/lib/sieJaxrpcMessage-1.0.1.jar</systemPath>	
+		</dependency>
+		<dependency>
+			<groupId>com.message</groupId>
+			<artifactId>sieEmailMessage</artifactId>
+			<version>1.0.1</version>
+			 <scope>system</scope>
+			<systemPath>${extra.lib.basedir}/lib/sieEmailMessage-1.0.1.jar</systemPath>	
+		</dependency>
+		<dependency>
+			<groupId>com.message</groupId>
+			<artifactId>sieCommons-discovery-0.2Message</artifactId>
+			<version>1.0.1</version>
+			 <scope>system</scope>
+			<systemPath>${extra.lib.basedir}/lib/sieCommons-discovery-0.2Message-1.0.1.jar</systemPath>	
+		</dependency>
+		<dependency>
+			<groupId>com.message</groupId>
+			<artifactId>sieAxisMessage</artifactId>
+			<version>1.0.1</version>
+					    <scope>system</scope>
+		  <systemPath>${extra.lib.basedir}/lib/sieAxisMessage-1.0.1.jar</systemPath>		
+		</dependency>
+		
+		<!-- MQ相关jar包-->
+
+		<dependency>
+			<groupId>com.sie</groupId>
+			<artifactId>sieActiveMQ</artifactId>
+			<version>1.0.1</version>
+			 <scope>system</scope>
+			<systemPath>${extra.lib.basedir}/lib/sieActiveMQ-1.0.1.jar</systemPath>	
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-pool</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-spring</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-osgi -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-osgi</artifactId>
+			<version>5.9.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!--mail相关jar-->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<finalName>SaafMessageModel</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
