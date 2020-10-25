@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
+  <filter>
+    <filter-name>scheduleCrossFilter</filter-name>
+    <filter-class>saaf.common.fmw.schedule.filter.ScheduleCrossFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>monitoring</filter-name>
+    <filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>scheduleCrossFilter</filter-name>
+    <url-pattern>/scheduleServer/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>monitoring</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>net.bull.javamelody.SessionListener</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>
+        saaf.common.fmw.api.ApSrmService;
+        saaf.common.fmw.schedule.services;
+        saaf.common.fmw.report.services;
+        saaf.common.fmw.spm.services;
+        saaf.common.fmw.message.services;
+        saaf.common.fmw.spm.services;
+        saaf.common.fmw.qco.services;
+        saaf.common.fmw.po.services;
+        saaf.common.fmw.base.services;
+        saaf.common.fmw.pos.services;
+        saaf.common.fmw.intf.services;
+        saaf.common.fmw.schedule.utils.SaafToolUtils;
+      </param-value>
+    </init-param>
+    <init-param>
+      <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>CommonsServlet</servlet-name>
+    <servlet-class>saaf.common.fmw.schedule.servlets.CommonsServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <url-pattern>/restServer/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CommonsServlet</servlet-name>
+    <url-pattern>/commonsservlet</url-pattern>
+  </servlet-mapping>
+</web-app>

@@ -1,0 +1,278 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+    <context:annotation-config/>
+    <context:component-scan
+            base-package="com.yhg.redis.framework.*,
+                                          saaf.common.fmw.common.server,
+                                          com.yhg.hibernate.core.dao,
+                                          saaf.common.fmw.schedule.*,
+                                          saaf.common.fmw.base.model.dao,
+                                          saaf.common.fmw.base.model.dao.readonly,
+                                          saaf.common.fmw.base.model.entities,
+                                          saaf.common.fmw.base.model.entities.readonly,
+                                          saaf.common.fmw.intf.model.dao,
+                                          saaf.common.fmw.intf.model.dao.readonly,
+                                          saaf.common.fmw.intf.model.entities,
+                                          saaf.common.fmw.intf.model.entities.readonly,
+                                          saaf.common.fmw.po.model.dao,
+                                          saaf.common.fmw.po.model.dao.readonly,
+                                          saaf.common.fmw.po.model.entities,
+                                          saaf.common.fmw.po.model.entities.readonly,
+                                          saaf.common.fmw.pos.model.dao,
+                                          saaf.common.fmw.pos.model.dao.readonly,
+                                          saaf.common.fmw.pos.model.entities,
+                                          saaf.common.fmw.pos.model.entities.readonly,
+                                          saaf.common.fmw.intf.model.inter.server,
+                                          saaf.common.fmw.gl.model.dao,
+                                          saaf.common.fmw.gl.model.dao.readonly,
+                                          saaf.common.fmw.gl.model.entities,
+                                          saaf.common.fmw.gl.model.entities.readonly,
+                                          saaf.common.fmw.spm.model.dao,
+                                          saaf.common.fmw.spm.model.dao.readonly,
+                                          saaf.common.fmw.spm.model.entities,
+                                          saaf.common.fmw.spm.model.entities.readonly,
+                                          saaf.common.fmw.prc.model.dao,
+                                          saaf.common.fmw.prc.model.dao.readonly,
+                                          saaf.common.fmw.prc.model.entities,
+                                          saaf.common.fmw.prc.model.entities.readonly,
+                                          saaf.common.fmw.pon.model.dao,
+                                          saaf.common.fmw.pon.model.dao.readonly,
+                                          saaf.common.fmw.pon.model.entities,
+                                          saaf.common.fmw.pon.model.entities.readonly,
+                                          saaf.common.fmw.okc.model.dao,
+                                          saaf.common.fmw.okc.model.dao.readonly,
+                                          saaf.common.fmw.okc.model.entities,
+                                          saaf.common.fmw.okc.model.entities.readonly">
+
+    </context:component-scan>
+    <!--    saafbase模块-->
+
+
+    <bean id="saafBaseOperlogServer" class="saaf.common.fmw.base.model.inter.server.SaafBaseOperlogServer"></bean>
+    <bean id="baseSaafUsersInstServer" class="saaf.common.fmw.base.model.inter.server.SaafUsersInstServer"></bean>
+    <bean id="srmBaseCategoriesServer" class="saaf.common.fmw.base.model.inter.server.SrmBaseCategoriesServer"></bean>
+    <bean id="srmBaseUserCategoriesServer" class="saaf.common.fmw.base.model.inter.server.SrmBaseUserCategoriesServer"></bean>
+    <bean id="baseSaafInstitutionServer" class="saaf.common.fmw.base.model.inter.server.SaafInstitutionServer"></bean>
+
+    <bean id="srmBaseNotificationsServer" class="saaf.common.fmw.base.model.inter.server.SrmBaseNotificationsServer"></bean>
+    <bean id="srmBaseBanksServer" class="saaf.common.fmw.base.model.inter.server.SrmBaseBanksServer"></bean>
+    <bean id="srmBaseBranchesServer" class="saaf.common.fmw.base.model.inter.server.SrmBaseBranchesServer"></bean>
+    <bean id="baseSaafUserRespServer" class="saaf.common.fmw.base.model.inter.server.SaafUserRespServer"></bean>
+    <bean id="esbClientServer" class="saaf.common.fmw.base.model.inter.server.ESBClientServer"></bean>
+    <bean id="eKPSyncService" class="saaf.common.fmw.base.ws.service.EKPSyncService"></bean>
+    <bean id="saafBaseResultFileServer" class="saaf.common.fmw.base.model.inter.server.SaafBaseResultFileServer"></bean>
+    <bean id="syncProcess" class="saaf.common.fmw.base.ws.process.SyncProcess"></bean>
+
+    <bean id="saafLookupServer" class="saaf.common.fmw.base.model.inter.server.SaafLookupServer"></bean>
+    <bean id="srmBaseItemServer" class="saaf.common.fmw.base.model.inter.server.SrmBaseItemServer"></bean>
+    <bean id="SrmBaseItemsBServer" class="saaf.common.fmw.base.model.inter.server.SrmBaseItemsBServer"></bean>
+
+    <!--    common模块-->
+    <bean id="saafDocSequencesDAO_HI" class="saaf.common.fmw.common.model.dao.SaafDocSequencesDAO_HI"></bean>
+    <bean id="saafSequencesUtil" class="saaf.common.fmw.common.model.inter.server.SaafSequencesUtil"></bean>
+    <bean id="generateOnlyCodeServer" class="saaf.common.fmw.common.model.inter.server.GenerateOnlyCodeServer"></bean>
+    <bean id="saafDocSequencesServer" class="saaf.common.fmw.common.model.inter.server.SaafDocSequencesServer"></bean>
+
+    <!--    pos模块-->
+    <bean id="supplierInfoServer" class="saaf.common.fmw.pos.model.inter.server.SupplierInfoServer"></bean>
+    <bean id="srmPosSupplierCredentialsServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosSupplierCredentialsServer"></bean>
+    <bean id="srmPosSupplierCertificateServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosSupplierCertificateServer"></bean>
+    <bean id="srmPosSupplierCategoriesServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosSupplierCategoriesServer"></bean>
+    <bean id="srmPosSupplierContactsServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosSupplierContactsServer"></bean>
+    <bean id="srmPosSupplierBankServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosSupplierBankServer"></bean>
+    <bean id="srmPosSupplierAddressesServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosSupplierAddressesServer"></bean>
+    <bean id="srmPosSupplierSitesServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosSupplierSitesServer"></bean>
+    <bean id="srmUsersServer" class="saaf.common.fmw.pos.model.inter.server.SaafUsersServer"></bean>
+    <bean id="srmPosSupplierQuitServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosSupplierQuitServer"></bean>
+    <bean id="srmQualificationInfoServer" class="saaf.common.fmw.pos.model.inter.server.QualificationInfoServer"></bean>
+
+    <!--    pon模块-->
+    <bean id="srmPonAuctionHeadersServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonAuctionHeadersServer"></bean>
+    <bean id="srmPonPriceLibraryServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonPriceLibraryServer"></bean>
+    <bean id="srmPonAuctionGroupsServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonAuctionGroupsServer"></bean>
+    <bean id="srmPonAuctionItemsServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonAuctionItemsServer"></bean>
+    <bean id="srmPonAuctionSuppliersServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonAuctionSuppliersServer"></bean>
+    <bean id="srmPonAuctionJuriesServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonAuctionJuriesServer"></bean>
+    <bean id="srmPonAuctionScoreRulesServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonAuctionScoreRulesServer"></bean>
+    <bean id="srmPonBidItemPricesServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonBidItemPricesServer"></bean>
+    <bean id="srmPonBidHeadersServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonBidHeadersServer"></bean>
+
+
+
+    <!--调用-->
+    <bean id="srmPoJobServer" class="saaf.common.fmw.po.model.inter.server.SrmPoJobServer"></bean>
+    <bean id="srmBaseJobServer" class="saaf.common.fmw.base.model.inter.server.SrmBaseJobServer"></bean>
+    <bean id="srmPonJobServer" class="saaf.common.fmw.pon.model.inter.server.SrmPonJobServer"></bean>
+    <bean id="srmPosJobServer" class="saaf.common.fmw.pos.model.inter.server.SrmPosJobServer"></bean>
+    <bean id="srmOkcJobServer" class="saaf.common.fmw.okc.model.inter.server.SrmOkcJobServer"></bean>
+
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <value>classpath:saaf/common/fmw/config/db_jdbc.properties</value>
+        </property>
+    </bean>
+    <!--
+  <bean id="wsSecurityPolicy" class="com.yhg.redis.framework.WSSecurityPolicy"></bean>
+  -->
+
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="validationQuery" value="SELECT 1 from dual" />
+        <property name="initialSize" value="20"/>
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="50"/>
+        <property name="minIdle" value="20"/>
+    </bean>
+    <!-- -如果是在Spring中使用c3p0连接池，则在定义datasource的时候，添加属性testConnectionOnCheckin和testConnectionOnCheckout，如：
+    <bean name="cacheCloudDB" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${cache.url}"/>
+        <property name="user" value="${cache.user}"/>
+        <property name="password" value="${cache.password}"/>
+        <property name="initialPoolSize" value="10"/>
+        <property name="maxPoolSize" value="${cache.maxPoolSize}"/>
+        <property name="testConnectionOnCheckin" value="false"/>
+        <property name="testConnectionOnCheckout" value="true"/>
+        <property name="preferredTestQuery" value="SELECT 1"/>
+    </bean>-->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>saaf.common.fmw.*.model.entities</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <prop key="hibernate.dialect">saaf.common.fmw.utils.MyOracleDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- 配置调度模块 start-->
+    <bean id="schedulerListener" class="saaf.common.fmw.schedule.utils.listeners.GlobalSchedulerListener"></bean>
+    <bean id="globalJobListener" class="saaf.common.fmw.schedule.utils.listeners.GlobalJobListener"></bean>
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="schedulerListeners">
+            <list>
+                <ref bean="schedulerListener"/>
+            </list>
+        </property>
+        <property name="globalJobListeners">
+            <list>
+                <ref bean="globalJobListener"/>
+            </list>
+        </property>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="schedulerName" value="myScheduler"/>
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="configLocation"
+                  value="classpath:saaf/common/fmw/config/quartz.properties"/>
+    </bean>
+    <!-- 配置调度模块 end-->
+    <bean id="hibernateTemplete" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <!--    aop切面-->
+    <bean class="saaf.common.fmw.common.aspectj.LogAspect" id="logAspect"/>
+    <bean class="saaf.common.fmw.common.aspectj.ExceptionAspect" id="exceptionAspect"/>
+    <!-- 配置事务的传播特性 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="create*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="*" read-only="false"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 那些类的哪些方法参与事务-->
+    <aop:config>
+        <aop:pointcut id="businessService"
+                      expression="execution(* saaf.common.fmw.schedule.model.inter.server.*.*(..))
+                      or execution(* saaf.common.fmw.schedule.utils.listeners.*.*(..)) or execution(* saaf.common.fmw.qco.model.inter.server.*.*(..))
+                      or execution(* saaf.common.fmw.intf.model.inter.server.*.*(..))  or execution(* saaf.common.fmw.po.model.inter.server.*.*(..))
+                      or execution(* saaf.common.fmw.pon.model.inter.server.*.*(..)) or execution(* saaf.common.fmw.prc.model.inter.server.*.*(..))
+                      or execution(* saaf.common.fmw.spm.model.inter.server.*.*(..)) or execution(* saaf.common.fmw.pos.model.inter.server.*.*(..)) or execution(* saaf.common.fmw.base.model.inter.server.*.*(..))
+or execution(* saaf.common.fmw.okc.model.inter.server.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="businessService"/>
+        <aop:aspect id="serviceMonitor" ref="logAspect">
+            <aop:pointcut expression="@annotation(saaf.common.fmw.base.utils.annotation.Log)" id="servicePointcut" />
+            <aop:around method="doAroundMethodLog" pointcut-ref="servicePointcut"/>
+        </aop:aspect>
+        <aop:aspect ref="exceptionAspect">
+            <aop:pointcut id="exceptionLog" expression="execution(* saaf.common.fmw.*.services.*(..))"/>
+            <aop:before method="before" pointcut-ref="exceptionLog" />
+            <aop:around method="catchException" pointcut-ref="exceptionLog"/>
+            <aop:after-returning method="afterReturin" pointcut-ref="exceptionLog" returning="returnVal"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- 定义事务 -->
+    <!--<tx:advice id="queryTXAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="find*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>-->
+    <!-- 定义切面
+    <aop:config>
+        <aop:pointcut id="interceptorPointCuts" expression="execution(* com.yhg.hibernate.core.dao.*.*(..))" />
+        <aop:advisor advice-ref="queryTXAdvice" pointcut-ref="interceptorPointCuts" />
+    </aop:config> -->
+    <!--
+  <aop:config>
+       <aop:pointcut id="recordkHistoryData" expression="execution(* com.yhg.hibernate.core.dao.*.save*(..)) or execution(* com.yhg.hibernate.core.dao.*.update*(..)) or execution(* com.yhg.hibernate.core.dao.*.delete(..))"/>
+           <aop:aspect id="dataUpdateHistoryAspect" ref="aspectBean">
+           <aop:after pointcut-ref="recordkHistoryData" method="doAfter"/>
+           <aop:around pointcut-ref="recordkHistoryData" method="doAround"/>
+           <aop:after-throwing pointcut-ref="recordkHistoryData" method="doThrowing" throwing="ex"/>
+       </aop:aspect>
+   </aop:config>
+
+   <bean id="aspectBean" class="com.yhg.spring.aop.aspect.DataUpdateHistoryAspect">
+       <constructor-arg name="springConfigFilePath" value="classpath:saaf/common/fmw/config/spring.hibernate.history.cfg.xml"/>
+   </bean>
+   -->
+    <bean name="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
+        <property name="maxWaitMillis" value="-1"/>
+        <property name="maxTotal" value="1000"/>
+        <property name="minIdle" value="8"/>
+        <property name="maxIdle" value="100"/>
+    </bean>
+    <bean id="jedisCluster" class="com.yhg.redis.framework.facotry.JedisClusterFactory">
+        <property name="addressConfig">
+            <value>classpath:saaf/common/fmw/config/db_redis.properties</value>
+        </property>
+        <property name="addressKeyPrefix" value="address"/>
+        <property name="timeout" value="300000"/>
+        <property name="maxRedirections" value="6"/>
+        <property name="genericObjectPoolConfig" ref="genericObjectPoolConfig"/>
+    </bean>
+    <!--  属性文件里  key的前缀 -->
+</beans>

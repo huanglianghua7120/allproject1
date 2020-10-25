@@ -1,0 +1,221 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sie.saaf</groupId>
+	<artifactId>SaafScheduleModel</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>SaafScheduleModel Maven Webapp</name>
+	<!--<url>http://maven.apache.org</url>-->
+
+	<parent>
+		<groupId>com.sie.saaf</groupId>
+		<artifactId>saaf-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../SaafProjectMaster/pom.xml</relativePath>
+	</parent>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<package.config>dev</package.config>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>local</id>
+			<properties>
+				<package.config>local</package.config>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>sit</id>
+			<properties>
+				<package.config>sit</package.config>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>uat</id>
+			<properties>
+				<package.config>uat</package.config>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>cloud</id>
+			<properties>
+				<package.config>cloud</package.config>
+			</properties>
+		</profile>
+	</profiles>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>saafCommonModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+			
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmEntitiesModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		 <dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmIntfModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>saafBaseModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+  		<dependency>
+  			<groupId>com.sie.saaf</groupId>
+  			<artifactId>SrmSpmModel</artifactId>
+  			<version>1.0-SNAPSHOT</version>
+  		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmPosModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmBaseModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<!--added by xuwen at 2018/11/07-->
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SrmPoModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<!--added by xuwen at 2018/11/29-->
+		<dependency>
+			<groupId>com.sie.saaf</groupId>
+			<artifactId>SaafMessageModel</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<!--added by xuwen at 2018/12/10-->
+
+        <dependency>
+            <groupId>com.sie.saaf</groupId>
+            <artifactId>SrmPonModel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sie.saaf</groupId>
+            <artifactId>SrmOkcModel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+	</dependencies>
+
+
+	<build>
+		<finalName>ScheduleApp</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>local/**</exclude>
+					<exclude>dev/**</exclude>
+					<exclude>sit/**</exclude>
+					<exclude>uat/**</exclude>
+					<exclude>cloud/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>1.8</source>
+					<target>1.8</target>
+
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/resources/${package.config}</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                            <filtering>false</filtering>
+                        </resource>
+                    </webResources>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>
+                            <includeScope>system</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+</project>
