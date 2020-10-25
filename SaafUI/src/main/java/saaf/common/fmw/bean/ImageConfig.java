@@ -12,7 +12,7 @@ public class ImageConfig {
 
     public ImageConfig() {
     }
-
+// 修修改改
     ;
 
     public ImageConfig(Integer hieght, Integer width, Boolean logo, Boolean compress) {
